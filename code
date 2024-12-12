@@ -1,0 +1,42 @@
+todolist = []
+f = open("to.do","r")
+todolist = eval(f.read())
+f.close()
+def Pprint():
+    for i in todolist:
+        for s in i:
+            print(s, end = " | ")
+        print()
+print("TODO List")
+print()
+while True:
+    option = input("Add[1], Remove[2], Edit,[3] or View[4]:\n")
+    if option == "1":
+        title = input("Title: ").strip().title()
+        dueD = input("Due Date: ").strip().title()
+        priority = input("Priority: ").strip().title()
+        info = [title, dueD, priority]
+        todolist.append(info)
+        Pprint()
+    elif option == "2":
+        if not todolist:
+            print("The to-do list doesn't have that title")
+            continue
+        title = input("What title do you want to remove: ").strip().title()
+        for i in todolist[:]:  
+            if i[0] == title:
+                todolist.remove(i)
+                break
+    elif option == "3":
+        title = input("What title do you want to edit: ").strip().title()
+        for i in todolist:
+            for s in i:
+                if s == title:
+                    i[0] = input("New title: ").strip().title()
+                    i[1] = input("New due date: ").strip().title()
+                    i[2] = input("New priority: ").strip().title()
+    elif option == "4":
+        Pprint()
+    f = open('to.do','w')
+    f.write(str(todolist))
+    f.close()
